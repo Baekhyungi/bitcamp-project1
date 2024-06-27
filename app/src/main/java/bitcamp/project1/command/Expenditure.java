@@ -1,17 +1,19 @@
 package bitcamp.project1.command;
 
-import bitcamp.project1.vo.ExpenditureItem;
+import bitcamp.project1.vo.Item;
 import bitcamp.project1.util.Prompt;
 
 import java.util.ArrayList;
 import java.time.LocalDate;
 public class Expenditure {
 
-    private ArrayList<ExpenditureItem> expenditures = new ArrayList<>();
+    private ArrayList<Item> expenditures = new ArrayList<>();
 
     public void manage(Prompt prompt) {
         while (true) {
-            System.out.println("\n1. 등록 2. 목록 3. 변경 4. 삭제 9. 이전");
+            System.out.println("\n[지출]");
+            System.out.println("1. 등록 2. 목록 3. 변경 4. 삭제 9. 이전");
+
             int choice = prompt.getInt("메인/지출> ");
 
             switch (choice) {
@@ -41,7 +43,7 @@ public class Expenditure {
         int amount = prompt.getInt("금액: ");
         String description = prompt.getString("내용: ");
 
-        expenditures.add(new ExpenditureItem(date, category, amount, description));
+        expenditures.add(new Item(date, category, amount, description));
         System.out.println("지출이 추가되었습니다.");
     }
 
@@ -57,8 +59,9 @@ public class Expenditure {
 
     private void updateExpenditure(Prompt prompt) {
         listExpenditures();
-        if (expenditures.isEmpty()) return;
-
+        if (expenditures.isEmpty()){
+            System.out.println("변경할 지출이 없습니다.");
+        }
         int index = prompt.getInt("변경할 항목 번호: ") - 1;
         if (index < 0 || index >= expenditures.size()) {
             System.out.println("잘못된 번호입니다.");
@@ -70,14 +73,15 @@ public class Expenditure {
         int amount = prompt.getInt("새 금액: ");
         String description = prompt.getString("새 내용: ");
 
-        expenditures.set(index, new ExpenditureItem(date, category, amount, description));
+        expenditures.set(index, new Item(date, category, amount, description));
         System.out.println("지출이 변경되었습니다.");
     }
 
     private void deleteExpenditure(Prompt prompt) {
         listExpenditures();
-        if (expenditures.isEmpty()) return;
-
+        if (expenditures.isEmpty()){
+            System.out.println("삭제할 지출이 없습니다.");
+        }
         int index = prompt.getInt("삭제할 항목 번호: ") - 1;
         if (index < 0 || index >= expenditures.size()) {
             System.out.println("잘못된 번호입니다.");

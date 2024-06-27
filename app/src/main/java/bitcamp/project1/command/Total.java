@@ -12,6 +12,7 @@ public class Total {
     }
 
     public void showTotal() {
+        System.out.println("\n[총합]");
         int totalIncome = income.getTotal();
         int totalExpenditure = expenditure.getTotal();
         int balance = totalIncome - totalExpenditure;

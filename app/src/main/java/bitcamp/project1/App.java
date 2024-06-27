@@ -34,7 +34,7 @@ public class App {
                     System.out.println("프로그램을 종료합니다.");
                     return;
                 default:
-                    System.out.println("잘못된 선택입니다.");
+                    System.out.println("유효한 메뉴 번호가 아닙니다.");
             }
         }
     }

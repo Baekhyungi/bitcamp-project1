@@ -3,13 +3,13 @@ package bitcamp.project1.vo;
 import java.time.LocalDate;
 import bitcamp.project1.util.restAmount;
 
-public class ExpenditureItem {
+public class Item {
     LocalDate date;
     String category;
     public int amount;
     String description;
 
-    public ExpenditureItem(LocalDate date, String category, int amount, String description) {
+    public Item(LocalDate date, String category, int amount, String description) {
         this.date = date;
         this.category = category;
         this.amount = amount;
