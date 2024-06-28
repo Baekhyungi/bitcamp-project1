@@ -174,8 +174,6 @@ public class TransactionCommand {
         try {
             if (date.length() == 7) {
                 java.time.YearMonth.parse(date);
-            } else if (date.length() == 10) {
-                java.time.LocalDate.parse(date);
             } else {
                 return false;
             }
