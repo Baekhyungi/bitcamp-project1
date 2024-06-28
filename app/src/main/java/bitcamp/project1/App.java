@@ -1,4 +1,4 @@
-package bitcamp.myapp;
+package bitcamp.project1;
 
 import bitcamp.myapp.command.TransactionCommand;
 import bitcamp.myapp.util.Prompt;
