@@ -114,20 +114,21 @@ public class TransactionCommand {
     private void viewTransaction() {
         String date = Prompt.input("조회할 날짜(yyyy-MM)?");
         boolean found = false;
-        System.out.println("번호 구분 작성일 카테고리 내용 금액");
+
         for (Transaction transaction : transactions) {
             if (transaction.getCreatedDateFormatted().startsWith(date)) {
+                found = true;
+                System.out.println("번호 구분 작성일 카테고리 내용 금액");
                 System.out.printf("%d, %s, %s, %s, %s, %s원\n",
                         transaction.getNo(), transaction.getType(), transaction.getCreatedDateFormatted(),
                         transaction.getCategory(), transaction.getContent(), formatAmount(transaction.getAmount()));
-                found = true;
             }
         }
+
         if (!found) {
             System.out.println("해당 날짜에 거래 내역이 없습니다.");
         } else {
-            System.out.println("상세 조회할 거래의 번호를 입력하세요.");
-            int transactionNo = Prompt.inputInt("번호?");
+            int transactionNo = Prompt.inputInt("상세 조회할 거래의 번호?");
             Transaction foundTransaction = null;
             for (Transaction transaction : transactions) {
                 if (transaction.getNo() == transactionNo) {
