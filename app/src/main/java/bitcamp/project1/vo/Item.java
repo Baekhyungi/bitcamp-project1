@@ -1,13 +1,14 @@
 package bitcamp.project1.vo;
 
 import java.time.LocalDate;
-import bitcamp.project1.util.restAmount;
+import java.text.NumberFormat;
+import java.util.Locale;
 
 public class Item {
-    LocalDate date;
-    String category;
-    public int amount;
-    String description;
+    private LocalDate date;
+    private String category;
+    private int amount;
+    private String description;
 
     public Item(LocalDate date, String category, int amount, String description) {
         this.date = date;
@@ -16,8 +17,28 @@ public class Item {
         this.description = description;
     }
 
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public int getAmount() {
+        return amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
     @Override
     public String toString() {
-        return String.format("%s | %s | %s | %s", date, category, restAmount.formatNumber(amount), description);
+        return String.format("%s | %s | %s | %s", date, category, formatNumber(amount), description);
+    }
+
+    private String formatNumber(int number) {
+        return NumberFormat.getNumberInstance(Locale.getDefault()).format(number);
     }
 }
