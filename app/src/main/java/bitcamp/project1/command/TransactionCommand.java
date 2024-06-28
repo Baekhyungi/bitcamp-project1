@@ -113,24 +113,39 @@ public class TransactionCommand {
 
     private void viewTransaction() {
         listTransaction();
-        int transactionNo = Prompt.inputInt("번호?");
-        Transaction foundTransaction = null;
-        for (Object obj : transactions.toArray()) {
-            Transaction transaction = (Transaction) obj;
-            if (transaction.getNo() == transactionNo) {
-                foundTransaction = transaction;
-                break;
+        String date = Prompt.input("조회할 날짜(yyyy-MM)?");
+        boolean found = false;
+        System.out.println("번호 구분 작성일 카테고리 내용 금액");
+        for (Transaction transaction : transactions) {
+            if (transaction.getCreatedDateFormatted().startsWith(date)) {
+                System.out.printf("%d, %s, %s, %s, %s, %s원\n",
+                        transaction.getNo(), transaction.getType(), transaction.getCreatedDateFormatted(),
+                        transaction.getCategory(), transaction.getContent(), formatAmount(transaction.getAmount()));
+                found = true;
             }
         }
-        if (foundTransaction != null) {
-            System.out.printf("번호: %d\n", foundTransaction.getNo());
-            System.out.printf("구분: %s\n", foundTransaction.getType());
-            System.out.printf("작성일: %s\n", foundTransaction.getCreatedDateFormatted());
-            System.out.printf("카테고리: %s\n", foundTransaction.getCategory());
-            System.out.printf("내용: %s\n", foundTransaction.getContent());
-            System.out.printf("금액: %s원\n", formatAmount(foundTransaction.getAmount()));
+        if (!found) {
+            System.out.println("해당 날짜에 거래 내역이 없습니다.");
         } else {
-            System.out.println("해당 번호가 없습니다.");
+            System.out.println("상세 조회할 거래의 번호를 입력하세요.");
+            int transactionNo = Prompt.inputInt("번호?");
+            Transaction foundTransaction = null;
+            for (Transaction transaction : transactions) {
+                if (transaction.getNo() == transactionNo) {
+                    foundTransaction = transaction;
+                    break;
+                }
+            }
+            if (foundTransaction != null) {
+                System.out.printf("번호: %d\n", foundTransaction.getNo());
+                System.out.printf("구분: %s\n", foundTransaction.getType());
+                System.out.printf("작성일: %s\n", foundTransaction.getCreatedDateFormatted());
+                System.out.printf("카테고리: %s\n", foundTransaction.getCategory());
+                System.out.printf("내용: %s\n", foundTransaction.getContent());
+                System.out.printf("금액: %s원\n", formatAmount(foundTransaction.getAmount()));
+            } else {
+                System.out.println("해당 번호의 거래 내역이 없습니다.");
+            }
         }
     }
 
