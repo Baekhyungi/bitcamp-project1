@@ -32,57 +32,6 @@ public class TransactionCommand {
         }
     }
 
-    public void showSummary() {
-        for (Object obj : transactions.toArray()) {
-            Transaction transaction = (Transaction) obj;
-            System.out.printf("%s, %s, %s, %s, %s원\n",
-                    transaction.getType(),
-                    transaction.getCreatedDateFormatted(),
-                    transaction.getCategory(),
-                    transaction.getContent(),
-                    formatAmount(transaction.getAmount()));
-        }
-    }
-
-    private void deleteTransaction() {
-        int transactionNo = Prompt.inputInt("번호?");
-        Transaction transactionToRemove = null;
-        for (Object obj : transactions.toArray()) {
-            Transaction transaction = (Transaction) obj;
-            if (transaction.getNo() == transactionNo) {
-                transactionToRemove = transaction;
-                break;
-            }
-        }
-        if (transactionToRemove != null) {
-            transactions.remove(transactionToRemove);
-            System.out.printf("%d번을 삭제했습니다.\n", transactionToRemove.getNo());
-        } else {
-            System.out.println("해당 번호가 없습니다.");
-        }
-    }
-
-    private void updateTransaction() {
-        listTransaction();
-        int transactionNo = Prompt.inputInt("번호?");
-        Transaction transactionToUpdate = null;
-        for (Object obj : transactions.toArray()) {
-            Transaction transaction = (Transaction) obj;
-            if (transaction.getNo() == transactionNo) {
-                transactionToUpdate = transaction;
-                break;
-            }
-        }
-        if (transactionToUpdate != null) {
-            transactionToUpdate.setCategory(Prompt.input("카테고리(%s)?", transactionToUpdate.getCategory()));
-            transactionToUpdate.setContent(Prompt.input("내용(%s)?", transactionToUpdate.getContent()));
-            transactionToUpdate.setAmount(Prompt.inputInt("금액(%,d)?", transactionToUpdate.getAmount()));
-            System.out.println("변경했습니다.");
-        } else {
-            System.out.println("해당 번호가 없습니다.");
-        }
-    }
-
     private void addTransaction(String type) {
         Transaction transaction = new Transaction();
 
@@ -105,7 +54,7 @@ public class TransactionCommand {
         System.out.println("번호 구분 작성일 카테고리 내용 금액");
         for (Object obj : transactions.toArray()) {
             Transaction transaction = (Transaction) obj;
-            System.out.printf("%d, %s, %s, %s, %s, %s원\n",
+            System.out.printf("%d. %s, %s, %s, %s, %s원\n",
                     transaction.getNo(), transaction.getType(), transaction.getCreatedDateFormatted(),
                     transaction.getCategory(), transaction.getContent(), formatAmount(transaction.getAmount()));
         }
@@ -119,7 +68,7 @@ public class TransactionCommand {
             if (transaction.getCreatedDateFormatted().startsWith(date)) {
                 found = true;
                 System.out.println("번호 구분 작성일 카테고리 내용 금액");
-                System.out.printf("%d, %s, %s, %s, %s, %s원\n",
+                System.out.printf("%d. %s, %s, %s, %s, %s원\n",
                         transaction.getNo(), transaction.getType(), transaction.getCreatedDateFormatted(),
                         transaction.getCategory(), transaction.getContent(), formatAmount(transaction.getAmount()));
             }
@@ -146,6 +95,58 @@ public class TransactionCommand {
             } else {
                 System.out.println("해당 번호의 거래 내역이 없습니다.");
             }
+        }
+    }
+
+    private void updateTransaction() {
+        listTransaction();
+        int transactionNo = Prompt.inputInt("번호?");
+        Transaction transactionToUpdate = null;
+        for (Object obj : transactions.toArray()) {
+            Transaction transaction = (Transaction) obj;
+            if (transaction.getNo() == transactionNo) {
+                transactionToUpdate = transaction;
+                break;
+            }
+        }
+        if (transactionToUpdate != null) {
+            transactionToUpdate.setCategory(Prompt.input("카테고리(%s)?", transactionToUpdate.getCategory()));
+            transactionToUpdate.setContent(Prompt.input("내용(%s)?", transactionToUpdate.getContent()));
+            transactionToUpdate.setAmount(Prompt.inputInt("금액(%,d)?", transactionToUpdate.getAmount()));
+            System.out.println("변경했습니다.");
+        } else {
+            System.out.println("해당 번호가 없습니다.");
+        }
+    }
+
+    private void deleteTransaction() {
+        int transactionNo = Prompt.inputInt("번호?");
+        Transaction transactionToRemove = null;
+        for (Object obj : transactions.toArray()) {
+            Transaction transaction = (Transaction) obj;
+            if (transaction.getNo() == transactionNo) {
+                transactionToRemove = transaction;
+                break;
+            }
+        }
+        if (transactionToRemove != null) {
+            transactions.remove(transactionToRemove);
+            System.out.printf("%d번을 삭제했습니다.\n", transactionToRemove.getNo());
+        } else {
+            System.out.println("해당 번호가 없습니다.");
+        }
+    }
+
+    public void showSummary() {
+        for (Object obj : transactions.toArray()) {
+            Transaction transaction = (Transaction) obj;
+            System.out.printf(" %d.  %s, %s, %s, %s, %s원\n",
+                    transaction.getNo(),
+                    transaction.getType(),
+                    transaction.getCreatedDateFormatted(),
+                    transaction.getCategory(),
+                    transaction.getContent(),
+                    formatAmount(transaction.getAmount()));
         }
     }
 
