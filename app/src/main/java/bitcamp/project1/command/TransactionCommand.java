@@ -9,7 +9,6 @@ import java.util.LinkedList;
 public class TransactionCommand {
 
     LinkedList<Transaction> transactions = new LinkedList<>();
-//    LinkedList transactions = new LinkedList();
 
     public void executeTransactionCommand(String type, String command) {
         System.out.printf("[%s]\n", command);
@@ -62,12 +61,19 @@ public class TransactionCommand {
 
     private void viewTransaction() {
         String date = Prompt.input("조회할 날짜(yyyy-MM)?");
+        if (!isValidDateFormat(date)) {
+            System.out.println("날짜 형식이 올바르지 않습니다.");
+            return;
+        }
+
         boolean found = false;
 
         for (Transaction transaction : transactions) {
             if (transaction.getCreatedDateFormatted().startsWith(date)) {
-                found = true;
-                System.out.println("번호 구분 작성일 카테고리 내용 금액");
+                if (!found) {
+                    System.out.println("번호 구분 작성일 카테고리 내용 금액");
+                    found = true;
+                }
                 System.out.printf("%d. %s, %s, %s, %s, %s원\n",
                         transaction.getNo(), transaction.getType(), transaction.getCreatedDateFormatted(),
                         transaction.getCategory(), transaction.getContent(), formatAmount(transaction.getAmount()));
@@ -162,5 +168,20 @@ public class TransactionCommand {
             totalAmount += transaction.getAmount();
         }
         return totalAmount;
+    }
+
+    private boolean isValidDateFormat(String date) {
+        try {
+            if (date.length() == 7) {
+                java.time.YearMonth.parse(date);
+            } else if (date.length() == 10) {
+                java.time.LocalDate.parse(date);
+            } else {
+                return false;
+            }
+            return true;
+        } catch (java.time.format.DateTimeParseException e) {
+            return false;
+        }
     }
 }
