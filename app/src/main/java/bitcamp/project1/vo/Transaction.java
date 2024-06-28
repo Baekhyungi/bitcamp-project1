@@ -16,10 +16,6 @@ public class Transaction {
     public Transaction() {
     }
 
-    public Transaction(int no) {
-        this.no = no;
-    }
-
     public static int getNextSeqNo() {
         return nextSeqNo++;
     }
