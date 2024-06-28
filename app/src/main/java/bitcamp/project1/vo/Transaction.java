@@ -57,7 +57,11 @@ public class Transaction {
     }
 
     public String getContent() {
-        return content;
+        if(content.isEmpty()){
+            return " - ";
+        } else {
+            return content;
+        }
     }
 
     public void setContent(String content) {

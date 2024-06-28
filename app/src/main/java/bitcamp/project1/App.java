@@ -56,7 +56,7 @@ public class App {
 
     void showTotalIncomeAndExpense() {
         System.out.println("수입/지출 내역을 출력합니다.");
-        System.out.println("번호 구분 작성일 카테고리 내용 금액");
+        System.out.println("번호 구분 작성일 카테고리 금액 내용");
         incomeCommand.showSummary();
         expenditureCommand.showSummary();
         System.out.println("--------------------------------");

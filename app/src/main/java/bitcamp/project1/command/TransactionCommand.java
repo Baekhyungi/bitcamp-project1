@@ -42,20 +42,20 @@ public class TransactionCommand {
             return;
         }
         transaction.setCategory(Prompt.input("카테고리?"));
-        transaction.setContent(Prompt.input("내용?"));
         transaction.setAmount(Prompt.inputInt("금액?"));
+        transaction.setContent(Prompt.input("내용?"));
         transaction.setNo(Transaction.getNextSeqNo());
         this.transactions.add(transaction);
         System.out.println("등록 했습니다.");
     }
 
     private void listTransaction() {
-        System.out.println("번호 구분 작성일 카테고리 내용 금액");
+        System.out.println("번호 구분 작성일 카테고리 금액 내용");
         for (Object obj : transactions.toArray()) {
             Transaction transaction = (Transaction) obj;
-            System.out.printf("%d. %s, %s, %s, %s, %s원\n",
+            System.out.printf("%d. %s, %s, %s, %s원, %s\n",
                     transaction.getNo(), transaction.getType(), transaction.getCreatedDateFormatted(),
-                    transaction.getCategory(), transaction.getContent(), formatAmount(transaction.getAmount()));
+                    transaction.getCategory(), formatAmount(transaction.getAmount()), transaction.getContent());
         }
     }
 
@@ -71,12 +71,12 @@ public class TransactionCommand {
         for (Transaction transaction : transactions) {
             if (transaction.getCreatedDateFormatted().startsWith(date)) {
                 if (!found) {
-                    System.out.println("번호 구분 작성일 카테고리 내용 금액");
+                    System.out.println("번호 구분 작성일 카테고리 금액 내용");
                     found = true;
                 }
-                System.out.printf("%d. %s, %s, %s, %s, %s원\n",
+                System.out.printf("%d. %s, %s, %s, %s원, %s\n",
                         transaction.getNo(), transaction.getType(), transaction.getCreatedDateFormatted(),
-                        transaction.getCategory(), transaction.getContent(), formatAmount(transaction.getAmount()));
+                        transaction.getCategory(), formatAmount(transaction.getAmount()), transaction.getContent());
             }
         }
 
@@ -96,8 +96,8 @@ public class TransactionCommand {
                 System.out.printf("구분: %s\n", foundTransaction.getType());
                 System.out.printf("작성일: %s\n", foundTransaction.getCreatedDateFormatted());
                 System.out.printf("카테고리: %s\n", foundTransaction.getCategory());
-                System.out.printf("내용: %s\n", foundTransaction.getContent());
                 System.out.printf("금액: %s원\n", formatAmount(foundTransaction.getAmount()));
+                System.out.printf("내용: %s\n", foundTransaction.getContent());
             } else {
                 System.out.println("해당 번호의 거래 내역이 없습니다.");
             }
@@ -117,8 +117,8 @@ public class TransactionCommand {
         }
         if (transactionToUpdate != null) {
             transactionToUpdate.setCategory(Prompt.input("카테고리(%s)?", transactionToUpdate.getCategory()));
-            transactionToUpdate.setContent(Prompt.input("내용(%s)?", transactionToUpdate.getContent()));
             transactionToUpdate.setAmount(Prompt.inputInt("금액(%,d)?", transactionToUpdate.getAmount()));
+            transactionToUpdate.setContent(Prompt.input("내용(%s)?", transactionToUpdate.getContent()));
             System.out.println("변경했습니다.");
         } else {
             System.out.println("해당 번호가 없습니다.");
@@ -146,13 +146,13 @@ public class TransactionCommand {
     public void showSummary() {
         for (Object obj : transactions.toArray()) {
             Transaction transaction = (Transaction) obj;
-            System.out.printf(" %d.  %s, %s, %s, %s, %s원\n",
+            System.out.printf(" %d.  %s, %s, %s, %s원, %s\n",
                     transaction.getNo(),
                     transaction.getType(),
                     transaction.getCreatedDateFormatted(),
                     transaction.getCategory(),
-                    transaction.getContent(),
-                    formatAmount(transaction.getAmount()));
+                    formatAmount(transaction.getAmount()),
+                    transaction.getContent());
         }
     }
 
