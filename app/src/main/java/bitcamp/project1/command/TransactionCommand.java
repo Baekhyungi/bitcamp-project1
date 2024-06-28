@@ -112,7 +112,6 @@ public class TransactionCommand {
     }
 
     private void viewTransaction() {
-        listTransaction();
         String date = Prompt.input("조회할 날짜(yyyy-MM)?");
         boolean found = false;
         System.out.println("번호 구분 작성일 카테고리 내용 금액");
