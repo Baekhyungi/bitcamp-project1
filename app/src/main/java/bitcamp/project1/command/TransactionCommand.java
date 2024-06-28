@@ -1,14 +1,15 @@
-package bitcamp.myapp.command;
+package bitcamp.project1.command;
 
-import bitcamp.myapp.util.Prompt;
-import bitcamp.myapp.vo.Transaction;
+import bitcamp.project1.util.Prompt;
+import bitcamp.project1.vo.Transaction;
 
 import java.text.DecimalFormat;
 import java.util.LinkedList;
 
 public class TransactionCommand {
 
-    LinkedList transactions = new LinkedList(); // Using raw LinkedList
+    LinkedList<Transaction> transactions = new LinkedList<>();
+//    LinkedList transactions = new LinkedList();
 
     public void executeTransactionCommand(String type, String command) {
         System.out.printf("[%s]\n", command);

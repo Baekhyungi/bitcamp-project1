@@ -1,7 +1,7 @@
 package bitcamp.project1;
 
-import bitcamp.myapp.command.TransactionCommand;
-import bitcamp.myapp.util.Prompt;
+import bitcamp.project1.command.TransactionCommand;
+import bitcamp.project1.util.Prompt;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;

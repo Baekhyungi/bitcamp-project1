@@ -1,4 +1,4 @@
-package bitcamp.myapp.vo;
+package bitcamp.project1.vo;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
