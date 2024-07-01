@@ -18,6 +18,7 @@ public class App {
     private final TransactionCommand expenditureCommand = new TransactionCommand();
 
     public static void main(String[] args) {
+
         new App().execute();
     }
 

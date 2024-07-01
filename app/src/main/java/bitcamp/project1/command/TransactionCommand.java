@@ -116,6 +116,14 @@ public class TransactionCommand {
             }
         }
         if (transactionToUpdate != null) {
+            try {
+                String newDate = Prompt.input("작성일(%s)?", transactionToUpdate.getCreatedDateFormatted());
+                if (!newDate.isEmpty()) {
+                    transactionToUpdate.setCreatedDate(newDate);
+                }
+            } catch (Exception e) {
+                System.out.println("날짜 형식이 올바르지 않습니다. 변경을 건너뜁니다.");
+            }
             transactionToUpdate.setCategory(Prompt.input("카테고리(%s)?", transactionToUpdate.getCategory()));
             transactionToUpdate.setAmount(Prompt.inputInt("금액(%,d)?", transactionToUpdate.getAmount()));
             transactionToUpdate.setContent(Prompt.input("내용(%s)?", transactionToUpdate.getContent()));
